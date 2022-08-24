@@ -82,7 +82,7 @@ SafeZone:start(function()
                     if IsDisabledControlJustReleased(disabledSafeZonesKeys[key].group, disabledSafeZonesKeys[key].key) then
                         SetCurrentPedWeapon(plyPed, GetHashKey("WEAPON_UNARMED"), true)
                         if disabledSafeZonesKeys[key].message and not isNotified then
-                            jLib.ShowNotification(disabledSafeZonesKeys[key].message)
+                            jLib.Notification.simple(disabledSafeZonesKeys[key].message)
                             isNotified = true
                             SetTimeout(1000, function()
                                 isNotified = false
@@ -95,10 +95,10 @@ SafeZone:start(function()
         SafeZone:radiusEvents(z.radius or 50.0, function()
             NetworkSetFriendlyFireOption(false)
             SetCurrentPedWeapon(PlayerPedId(), GetHashKey("WEAPON_UNARMED"), true)
-            jLib.ShowNotification('~g~Vous êtes en Zone Safe')
+            jLib.Notification.simple('~g~Vous êtes en Zone Safe')
         end, function()
             NetworkSetFriendlyFireOption(true)
-            jLib.ShowNotification('~r~Vous n\'êtes plus en Zone Safe')
+            jLib.Notification.simple('~r~Vous n\'êtes plus en Zone Safe')
         end)
     end
 end)

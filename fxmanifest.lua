@@ -17,7 +17,7 @@ game "gta5"
 
 author "JustGod"
 github "https://github.com/JustGodWork"
-description "Library for Script created by JustGod"
+description "SafeZone system using jLib"
 
 shared_scripts {
     "@jLib/import.lua",
