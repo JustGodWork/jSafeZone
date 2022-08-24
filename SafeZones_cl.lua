@@ -12,8 +12,6 @@
 -------
 --]]
 
-jLib.loadModule("client/Zones.lua")
-
 local disabledSafeZonesKeys = {
 	{group = 2, key = 37, message = '~r~Vous ne pouvez pas sortir d\'arme en Zone Safe'},
 	{group = 0, key = 24, message = '~r~Vous ne pouvez pas faire ceci en Zone Safe'},
@@ -47,7 +45,6 @@ end
 
 local SafeZone = Zone:create("SafeZone")
 local isNotified = false
-
 
 SafeZone:start(function()
     SafeZone:setTimer(1000)
