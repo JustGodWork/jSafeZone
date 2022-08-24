@@ -20,14 +20,21 @@ github "https://github.com/JustGodWork"
 description "SafeZone system using jLib"
 
 shared_scripts {
+    "Config.lua",
+    "@jLib/lang.lua",
     "@jLib/import.lua",
-    "Config.lua"
+    "locales/*.lua"
 }
 
 server_scripts {
-    "SafeZones_sv.lua"
+    "server/main.lua"
 }
 
 client_scripts {
-    "SafeZones_cl.lua"
+    "client/main.lua"
+}
+
+dependencies {
+    "es_extended",
+    "jLib"
 }

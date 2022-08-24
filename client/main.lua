@@ -13,12 +13,12 @@
 --]]
 
 local disabledSafeZonesKeys = {
-	{group = 2, key = 37, message = '~r~Vous ne pouvez pas sortir d\'arme en Zone Safe'},
-	{group = 0, key = 24, message = '~r~Vous ne pouvez pas faire ceci en Zone Safe'},
-	{group = 0, key = 69, message = '~r~Vous ne pouvez pas faire ceci en Zone Safe'},
-	{group = 0, key = 92, message = '~r~Vous ne pouvez pas faire ceci en Zone Safe'},
-	{group = 0, key = 106, message = '~r~Vous ne pouvez pas faire ceci en Zone Safe'},
-	{group = 0, key = 168, message = '~r~Vous ne pouvez pas faire ceci en Zone Safe'},
+	{group = 2, key = 37, message       = Lang.addEntry("no_weapon")},
+	{group = 0, key = 24, message       = Lang.addEntry("restricted")},
+	{group = 0, key = 69, message       = Lang.addEntry("restricted")},
+	{group = 0, key = 92, message       = Lang.addEntry("restricted")},
+	{group = 0, key = 106, message      = Lang.addEntry("restricted")},
+	{group = 0, key = 168, message      = Lang.addEntry("restricted")},
 }
 
 ---@param coords table | vector3
@@ -79,7 +79,7 @@ SafeZone:start(function()
                     if IsDisabledControlJustReleased(disabledSafeZonesKeys[key].group, disabledSafeZonesKeys[key].key) then
                         SetCurrentPedWeapon(plyPed, GetHashKey("WEAPON_UNARMED"), true)
                         if disabledSafeZonesKeys[key].message and not isNotified then
-                            jLib.Notification.simple(disabledSafeZonesKeys[key].message)
+                            jLib.Notification.simple(disabledSafeZonesKeys[key].message, 6)
                             isNotified = true
                             SetTimeout(1000, function()
                                 isNotified = false
@@ -92,10 +92,10 @@ SafeZone:start(function()
         SafeZone:radiusEvents(z.radius or 50.0, function()
             NetworkSetFriendlyFireOption(false)
             SetCurrentPedWeapon(PlayerPedId(), GetHashKey("WEAPON_UNARMED"), true)
-            jLib.Notification.simple('~g~Vous êtes en Zone Safe')
+            jLib.Notification.simple(Lang.addEntry("enter_safezone"))
         end, function()
             NetworkSetFriendlyFireOption(true)
-            jLib.Notification.simple('~r~Vous n\'êtes plus en Zone Safe')
+            jLib.Notification.simple(Lang.addEntry("leave_safezone"))
         end)
     end
 end)

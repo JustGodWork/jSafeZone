@@ -18,6 +18,10 @@ exports("getSafeZones", function()
     return jSafeZone
 end)
 
+Config = {
+    lang = "fr"
+}
+
 function jSafeZone.getConfig()
     return Config
 end
