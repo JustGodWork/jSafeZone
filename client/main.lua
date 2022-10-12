@@ -43,8 +43,8 @@ jSafeZone.deleteSafeZone = function(coords)
     end
 end
 
----@type Zone
-local SafeZone = jLib.Class.instance("Zone", "SafeZone");
+local SafeZone = Zone("SafeZone");
+
 local isNotified = false;
 
 SafeZone:start(function()
