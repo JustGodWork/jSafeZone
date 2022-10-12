@@ -13,12 +13,12 @@
 --]]
 
 local disabledSafeZonesKeys = {
-	{group = 2, key = 37, message       = Lang.addEntry("no_weapon")},
-	{group = 0, key = 24, message       = Lang.addEntry("restricted")},
-	{group = 0, key = 69, message       = Lang.addEntry("restricted")},
-	{group = 0, key = 92, message       = Lang.addEntry("restricted")},
-	{group = 0, key = 106, message      = Lang.addEntry("restricted")},
-	{group = 0, key = 168, message      = Lang.addEntry("restricted")},
+	{ group = 2, key = 37,   message         = Lang.addEntry("no_weapon")   },
+	{ group = 0, key = 24,   message         = Lang.addEntry("restricted")  },
+	{ group = 0, key = 69,   message         = Lang.addEntry("restricted")  },
+	{ group = 0, key = 92,   message         = Lang.addEntry("restricted")  },
+	{ group = 0, key = 106,  message         = Lang.addEntry("restricted")  },
+	{ group = 0, key = 168,  message         = Lang.addEntry("restricted")  },
 }
 
 ---@param coords table | vector3
@@ -43,8 +43,9 @@ jSafeZone.deleteSafeZone = function(coords)
     end
 end
 
-local SafeZone = Zone:create("SafeZone")
-local isNotified = false
+---@type Zone
+local SafeZone = jLib.Class.instance("Zone", "SafeZone");
+local isNotified = false;
 
 SafeZone:start(function()
     SafeZone:setTimer(1000)
@@ -80,9 +81,9 @@ SafeZone:start(function()
                         SetCurrentPedWeapon(plyPed, GetHashKey("WEAPON_UNARMED"), true)
                         if disabledSafeZonesKeys[key].message and not isNotified then
                             jLib.Notification.simple(disabledSafeZonesKeys[key].message, 6)
-                            isNotified = true
+                            isNotified = true;
                             SetTimeout(1000, function()
-                                isNotified = false
+                                isNotified = false;
                             end)
                         end
                     end
@@ -92,13 +93,13 @@ SafeZone:start(function()
         SafeZone:radiusEvents(z.radius or 50.0, function()
             NetworkSetFriendlyFireOption(false)
             SetCurrentPedWeapon(PlayerPedId(), GetHashKey("WEAPON_UNARMED"), true)
-            jLib.Notification.simple(Lang.addEntry("enter_safezone"))
+            jLib.Notification.simple(Lang.addEntry("enter_safezone"));
         end, function()
             NetworkSetFriendlyFireOption(true)
-            jLib.Notification.simple(Lang.addEntry("leave_safezone"))
-        end)
+            jLib.Notification.simple(Lang.addEntry("leave_safezone"));
+        end);
     end
-end)
+end);
 
 jLib.Events.onNet("jSafeZone:toggleZones", function(bool)
     if bool then 
@@ -106,4 +107,4 @@ jLib.Events.onNet("jSafeZone:toggleZones", function(bool)
     else 
         if SafeZone:isRunning() then SafeZone:stop() end
     end
-end)
+end);
