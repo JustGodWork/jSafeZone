@@ -14,9 +14,36 @@
 
 RegisterCommand("togglesafezone", function(source, args)
     local xPlayer = ESX.GetPlayerFromId(source)
-    if not tonumber(args[1]) then 
+    
+    if source == nul then
+        if xPlayer then return xPlayer.showNotification("Error: invalid source.") end
+        return print("Error: invalid source.")
+    end
+
+    if type(args[1]) ~= "number" then 
         if xPlayer then return xPlayer.showNotification("Syntax: 'arg number: 1 / 0'") end
         return print("Syntax: <arg number: 1 / 0>")
     end
+
+    if math.floor(tonumber(args[1])) ~= tonumber(args[1]) then
+        if xPlayer then return xPlayer.showNotification("Syntax: 'arg number: 1 / 0'") end
+        return print("Syntax: <arg number: 1 / 0>")
+    end
+
+    if tonumber(args[1]) ~= 0 and tonumber(args[1]) ~= 1 then
+        if xPlayer then return xPlayer.showNotification("Syntax: 'arg number: 1 / 0'") end
+        return print("Syntax: <arg number: 1 / 0>")
+    end
+
+    if not xPlayer.get('isAdmin') then
+        if xPlayer then return xPlayer.showNotification("You are not authorized to use this command.") end
+        return print("You are not authorized to use this command.")
+    end
+
+    if source ~= 0 then
+        if xPlayer then return xPlayer.showNotification("You cannot call this command.") end
+        return print("You cannot call this command.")
+    end
+    
     jLib.Events.broadcast("jSafeZone:toggleZones", tonumber(args[1]) ~= 0)
 end)
